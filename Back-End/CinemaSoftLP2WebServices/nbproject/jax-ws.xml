@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="ServiceWS">
+      <implementation-class>pe.edu.pucp.cinemasoft.services.ServiceWS</implementation-class>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>
