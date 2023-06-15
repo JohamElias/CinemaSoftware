@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://services.cinemasoft.pucp.edu.pe/" targetNamespace="http://services.cinemasoft.pucp.edu.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="GuardarPelicula" type="tns:GuardarPelicula" />
+  <xs:element name="GuardarPeliculaResponse" type="tns:GuardarPeliculaResponse" />
+  <xs:element name="ListarActoresPorNombre" type="tns:ListarActoresPorNombre" />
+  <xs:element name="ListarActoresPorNombreResponse" type="tns:ListarActoresPorNombreResponse" />
+  <xs:element name="ListarGeneros" type="tns:ListarGeneros" />
+  <xs:element name="ListarGenerosResponse" type="tns:ListarGenerosResponse" />
+  <xs:element name="ListarPeliculasPorTitulo" type="tns:ListarPeliculasPorTitulo" />
+  <xs:element name="ListarPeliculasPorTituloResponse" type="tns:ListarPeliculasPorTituloResponse" />
+  <xs:element name="hello" type="tns:hello" />
+  <xs:element name="helloResponse" type="tns:helloResponse" />
+  <xs:complexType name="hello">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="helloResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarGeneros">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="ListarGenerosResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:genero" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="genero">
+    <xs:sequence>
+      <xs:element name="activo" type="xs:boolean" />
+      <xs:element name="idGenero" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GuardarPelicula">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="pelicula" type="tns:pelicula" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pelicula">
+    <xs:sequence>
+      <xs:element name="activo" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="actores" nillable="true" type="tns:actor" />
+      <xs:element name="disponibleDoblada" type="xs:boolean" />
+      <xs:element name="disponibleSubtitulada" type="xs:boolean" />
+      <xs:element minOccurs="0" name="duracion" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaEstreno" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="genero" type="tns:genero" />
+      <xs:element name="idPelicula" type="xs:int" />
+      <xs:element minOccurs="0" name="portada" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="sinopsis" type="xs:string" />
+      <xs:element minOccurs="0" name="titulo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actor">
+    <xs:sequence>
+      <xs:element name="activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="apellidoPaterno" type="xs:string" />
+      <xs:element name="idActor" type="xs:int" />
+      <xs:element minOccurs="0" name="nacionalidad" type="xs:string" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GuardarPeliculaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarActoresPorNombre">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarActoresPorNombreResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:actor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarPeliculasPorTitulo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListarPeliculasPorTituloResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:pelicula" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

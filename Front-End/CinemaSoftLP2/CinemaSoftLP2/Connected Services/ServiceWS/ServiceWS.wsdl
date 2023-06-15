@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.cinemasoft.pucp.edu.pe/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="ServiceWS" targetNamespace="http://services.cinemasoft.pucp.edu.pe/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://localhost:8080/CinemaSoftLP2WebServices/ServiceWS?xsd=1" namespace="http://services.cinemasoft.pucp.edu.pe/" />
+    </xsd:schema>
+  </types>
+  <message name="ListarPeliculasPorTitulo">
+    <part name="parameters" element="tns:ListarPeliculasPorTitulo" />
+  </message>
+  <message name="ListarPeliculasPorTituloResponse">
+    <part name="parameters" element="tns:ListarPeliculasPorTituloResponse" />
+  </message>
+  <message name="hello">
+    <part name="parameters" element="tns:hello" />
+  </message>
+  <message name="helloResponse">
+    <part name="parameters" element="tns:helloResponse" />
+  </message>
+  <message name="ListarGeneros">
+    <part name="parameters" element="tns:ListarGeneros" />
+  </message>
+  <message name="ListarGenerosResponse">
+    <part name="parameters" element="tns:ListarGenerosResponse" />
+  </message>
+  <message name="GuardarPelicula">
+    <part name="parameters" element="tns:GuardarPelicula" />
+  </message>
+  <message name="GuardarPeliculaResponse">
+    <part name="parameters" element="tns:GuardarPeliculaResponse" />
+  </message>
+  <message name="ListarActoresPorNombre">
+    <part name="parameters" element="tns:ListarActoresPorNombre" />
+  </message>
+  <message name="ListarActoresPorNombreResponse">
+    <part name="parameters" element="tns:ListarActoresPorNombreResponse" />
+  </message>
+  <portType name="ServiceWS">
+    <operation name="ListarPeliculasPorTitulo">
+      <input wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/ListarPeliculasPorTituloRequest" message="tns:ListarPeliculasPorTitulo" />
+      <output wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/ListarPeliculasPorTituloResponse" message="tns:ListarPeliculasPorTituloResponse" />
+    </operation>
+    <operation name="hello">
+      <input wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/helloRequest" message="tns:hello" />
+      <output wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/helloResponse" message="tns:helloResponse" />
+    </operation>
+    <operation name="ListarGeneros">
+      <input wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/ListarGenerosRequest" message="tns:ListarGeneros" />
+      <output wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/ListarGenerosResponse" message="tns:ListarGenerosResponse" />
+    </operation>
+    <operation name="GuardarPelicula">
+      <input wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/GuardarPeliculaRequest" message="tns:GuardarPelicula" />
+      <output wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/GuardarPeliculaResponse" message="tns:GuardarPeliculaResponse" />
+    </operation>
+    <operation name="ListarActoresPorNombre">
+      <input wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/ListarActoresPorNombreRequest" message="tns:ListarActoresPorNombre" />
+      <output wsam:Action="http://services.cinemasoft.pucp.edu.pe/ServiceWS/ListarActoresPorNombreResponse" message="tns:ListarActoresPorNombreResponse" />
+    </operation>
+  </portType>
+  <binding name="ServiceWSPortBinding" type="tns:ServiceWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ListarPeliculasPorTitulo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="hello">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListarGeneros">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GuardarPelicula">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListarActoresPorNombre">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ServiceWS">
+    <port name="ServiceWSPort" binding="tns:ServiceWSPortBinding">
+      <soap:address location="http://localhost:8080/CinemaSoftLP2WebServices/ServiceWS" />
+    </port>
+  </service>
+</definitions>
