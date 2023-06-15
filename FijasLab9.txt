@@ -1,0 +1,142 @@
+
+SoftLP2DBManager
+..config
+DBManager
+private String url = "jdbc:mysql://" +
+            "lab3-lp2-2022-2.cffpkdxvkd7h.us-east-1.rds.amazonaws.com" +
+            ":3306/clinica_lp2?useSSL=false";
+    private String user = "administrador";
+    private String password = "20222lp2";
+    private Connection con;
+
+DAO
+
+public interface UsuarioDao {
+    public int insertar(Usuario usuario);
+    public int modificar(Usuario usuario);
+    public int eliminar(int idUsuario);
+    public ArrayList<Usuario> listarTodas();
+    public char verificarUsuario(Usuario usuario);
+    public int cambiarUsername(int idUsuario,String username);
+    public int cambiarPassword(int idUsuario,String password);
+}
+
+MySql
+
+Variables necesarias
+private Connection con;
+    private ResultSet rs;
+    private CallableStatement cs;
+
+Listar
+ @Override
+    public ArrayList<Usuario> listarTodas() {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call LISTAR_USUARIO_TODOS()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Usuario us = new Usuario();
+                us.setIdUsuario(rs.getInt("idUsuario"));
+                us.setUsername(rs.getString("username"));
+                us.setPassword(rs.getString("password"));
+                us.setTipo(rs.getString("tipo").charAt(0));
+                us.setActivo(true);
+                us.setFidPersona(rs.getInt("idPersona"));
+                if(rs.getInt("idPersona")!= 0){
+                    us.setFidPersona(rs.getInt("idPersona"));
+                }else
+                    us.setFidPersona(-1);
+                usuarios.add(us);
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{rs.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return usuarios;
+    }
+
+
+Insertar
+
+ @Override
+    public int insertar(Usuario usuario) {
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call INSERTAR_USUARIO(?,?,?,?,?,?)}");
+            cs.registerOutParameter("_idUsuario", 
+                    java.sql.Types.INTEGER);
+            cs.setString("_username", usuario.getUsername());
+            cs.setString("_password", usuario.getPassword());
+            cs.setString("_tipo", String.valueOf(usuario.getTipo()));
+            cs.setBoolean("_activo", true);
+            if(usuario.getFidPersona()!=-1)
+                cs.setInt("_Persona_idPersona", usuario.getFidPersona());
+            else
+                cs.setNull("_Persona_idPersona", Types.INTEGER);
+            cs.executeUpdate();
+            usuario.setIdUsuario(cs.getInt("_idUsuario"));
+            System.out.println("Se inserto un usuario correctamente");
+            resultado = usuario.getIdUsuario();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        
+        return resultado;
+    }
+
+
+Modificar
+
+    @Override
+    public int modificar(Usuario usuario) {
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call MODIFICAR_USUARIO(?,?,?,?,?,?)}");
+            cs.setInt("_idUsuario",usuario.getIdUsuario());
+            cs.setString("_username", usuario.getUsername());
+            cs.setString("_password", usuario.getPassword());
+            cs.setString("_tipo", String.valueOf(usuario.getTipo()));
+            cs.setBoolean("_activo", true);
+            if(usuario.getFidPersona()!=-1)cs.setInt("_Persona_idPersona", usuario.getFidPersona());
+            else
+                cs.setNull("_Persona_idPersona", Types.INTEGER);
+            cs.executeUpdate();
+            System.out.println("Se modifico  un usuario correctamente");
+            resultado = 1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return resultado;
+    }
+
+Eliminar
+
+ @Override
+    public int eliminar(int idUsuario) {
+        int resultado=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ELIMINAR_USUARIO(?)}");
+            cs.setInt("_id_usuario", idUsuario);
+            cs.executeUpdate();
+            resultado = 1;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        System.out.println("Se elimino un usuario correctamente");
+        return resultado;
+    }
+
+
